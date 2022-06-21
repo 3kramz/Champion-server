@@ -23,16 +23,18 @@ async function run() {
 
     const usersCollection = client.db("champion").collection("users");
   
-  
+    app.post(`/user/:email`, async (req, res) => {
+      const email = req.params.email
+      const result = await usersCollection.insertOne({email, role:"user"});
+      res.send(result)
+    })
     
 
     app.get('/',(req,res)=>{
         res.send("Champion equipment server is running")
     })
 
-  } finally {
-    await client.close();
-  }
+  } finally {}
 }
 run().catch(console.dir);
 
