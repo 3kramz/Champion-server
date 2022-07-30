@@ -9,11 +9,10 @@ const cart = (app, db) => {
   app.post(`/cart/:email`, async (req, res) => {
     const data = req.body;
     const email = req.params.email;
-
-    const options = { upsert: true };
+    const options = { upsert : true };
     const updateDoc = {
       $set: {
-        cart: data
+        cart: [...data]
       },
     };
 
@@ -25,11 +24,10 @@ const cart = (app, db) => {
     const data = req.body;
     const email = req.params.email;
     const options = { upsert: true };
-    const updateDoc = { $set: { cart: data  } };
+    const updateDoc = { $set: { cart: data } };
     const updated = await db.updateOne({ email }, updateDoc, options);
-    console.log(updated)
-      res.send(updated)
-    
+    res.send(updated)
+
   })
 
 
