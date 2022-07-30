@@ -12,7 +12,9 @@ app.use(express.json())
 app.use(cors())
 
 const user = require('./user/user.js')
-const role = require('./role')
+const role = require('./role');
+const tools = require('./Tools/tools.js');
+const cart = require('./Cart/cart.js');
 
 
 const uri = `mongodb+srv://C_ADMIN:${process.env.C_PASS}@cluster0.uclg8.mongodb.net/?retryWrites=true&w=majority`;
@@ -24,12 +26,19 @@ async function run() {
 
     await client.connect();
     const usersCollection = client.db("champion").collection("users");
+    const toolsCollection = client.db("champion").collection("tools");
+    const cartCollection = client.db("champion").collection("cart");
 
 
     role(app, usersCollection)
 
     // User related routes
     user(app, usersCollection)
+
+
+    tools(app,toolsCollection)
+
+    cart(app, cartCollection)
 
 
 
