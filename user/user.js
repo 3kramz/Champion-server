@@ -9,6 +9,7 @@ const user = (app, db) => {
 
     app.get(`/user/:email`, async (req, res) => {
         const email = req.params.email
+        
         const result = await db.findOne({ email });
         res.send(result)
     })
