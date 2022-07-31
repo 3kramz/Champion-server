@@ -1,8 +1,8 @@
 const order = (app, db) => {
 
-    app.get(`/cart/:email`, async (req, res) => {
+    app.get(`/order/:email`, async (req, res) => {
       const email = req.params.email;
-      const result = await db.findOne({ email })
+      const result = await db.find({ email }).toArray()
       res.send(result)
     })
   
