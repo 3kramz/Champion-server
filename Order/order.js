@@ -1,3 +1,4 @@
+const {  ObjectId } = require('mongodb');
 const order = (app, db) => {
 
     app.get(`/order/:email`, async (req, res) => {
@@ -12,7 +13,13 @@ const order = (app, db) => {
       res.send(result)
     })
  
-  
-  
+
+
+    app.get(`/order-status/:id`, async (req, res) => {
+      const _id = req.params.id;
+      const result = await db.findOne({ _id: ObjectId(_id) })
+      res.send(result)
+    })
+
   }
   module.exports = order
