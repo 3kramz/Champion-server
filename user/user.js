@@ -1,4 +1,22 @@
+const {  ObjectId } = require('mongodb');
+
 const user = (app, db) => {
+
+    app.get(`/users`, async (req, res) => {
+        const result = await db.find().toArray()
+        res.send(result)
+    })
+
+
+
+    app.put(`/user/admin/:id`, async (req, res) => {
+        const _id = req.params.id
+        const role = req.body.role
+        const updateDoc = { $set: { role } };
+        const result = await db.updateOne({ _id: ObjectId(_id) }, updateDoc, { upsert: true });
+        res.send(result)
+    })
+
 
     app.post(`/user/:email`, async (req, res) => {
         const email = req.params.email
