@@ -15,6 +15,7 @@ const user = require('./user/user.js')
 const role = require('./role');
 const tools = require('./Tools/tools.js');
 const cart = require('./Cart/cart.js');
+const order = require('./Order/order.js');
 
 
 const uri = `mongodb+srv://C_ADMIN:${process.env.C_PASS}@cluster0.uclg8.mongodb.net/?retryWrites=true&w=majority`;
@@ -28,6 +29,7 @@ async function run() {
     const usersCollection = client.db("champion").collection("users");
     const toolsCollection = client.db("champion").collection("tools");
     const cartCollection = client.db("champion").collection("cart");
+    const orderCollection = client.db("champion").collection("order");
 
 
     role(app, usersCollection)
@@ -39,6 +41,8 @@ async function run() {
     tools(app,toolsCollection)
 
     cart(app, cartCollection)
+
+    order(app, orderCollection)
 
 
 
